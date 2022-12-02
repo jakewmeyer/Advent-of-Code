@@ -1,4 +1,5 @@
 use anyhow::Result;
+
 fn main() -> Result<()> {
     let input: Vec<&str> = include_str!("../input.txt").lines().collect();
     println!("Problem 1: {}", problem1(&input)?);
@@ -49,7 +50,6 @@ fn problem2(input: &[&str]) -> Result<i32> {
             }
         }
     }
-    dbg!(&built_plays);
     let score = problem1(built_plays.as_slice())?;
     Ok(score)
 }
