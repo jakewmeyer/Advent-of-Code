@@ -40,7 +40,6 @@ impl FromStr for Game {
         for (_, [blue]) in re.captures_iter(s).map(|c| c.extract()) {
             blues.push(blue.parse::<u32>()?);
         }
-        dbg!(&reds, &blues, &greens);
         Ok(Game {
             id,
             red: *reds.iter().max().ok_or(anyhow!("Invalid red max"))?,
@@ -63,12 +62,17 @@ fn problem1(input: &[&str]) -> Result<u32> {
 }
 
 fn problem2(input: &[&str]) -> Result<u32> {
-    todo!()
+    let mut powers = Vec::new();
+    for line in input {
+        let game = line.parse::<Game>()?;
+        powers.push(game.red * game.blue * game.green);
+    }
+    Ok(powers.iter().sum())
 }
 
 fn main() -> Result<()> {
     let input = include_str!("../input.txt").lines().collect::<Vec<&str>>();
     println!("Problem 1: {}", problem1(&input)?);
-    // println!("Problem 2: {}", problem2(&input)?);
+    println!("Problem 2: {}", problem2(&input)?);
     Ok(())
 }
